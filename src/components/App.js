@@ -33,6 +33,8 @@ class App extends Component {
 	}
 
 	render() {
+		console.log('fishes = ', this.state.fishes)
+
 		return (
 			<div className="catch-of-the-day">
 				<div className="menu">
@@ -48,7 +50,7 @@ class App extends Component {
 						))}
 					</ul>
 				</div>
-				<Order />
+				<Order fishes={this.state.fishes} order={this.state.order} />
 				<Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} />
 			</div>
 		)
