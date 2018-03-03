@@ -14,6 +14,12 @@ class App extends Component {
 
 	componentDidMount() {
 		const { params } = this.props.match
+		const localStorageRef = localStorage.getItem(params.storeId)
+
+		if (localStorageRef) {
+			this.setState({ order: JSON.parse(localStorageRef) })
+		}
+
 		this.ref = base.syncState(`${params.storeId}/fishes`, {
 			context: this,
 			state: 'fishes'
@@ -25,13 +31,21 @@ class App extends Component {
 	}
 	
 	addFish = fish => {
-		console.log('fish = ', fish)
 		const fishes = { ...this.state.fishes }
 		fishes[`fish${Date.now()}`] = fish
 		this.setState({
 			fishes
 		})
 	}
+
+	componentDidUpdate(prevProps, prevState) {
+		console.log(this.state.order)
+		localStorage.setItem(
+      this.props.match.params.storeId,
+      JSON.stringify(this.state.order)
+    )
+	}
+	
 
 	loadSampleFishes = () => {
 		this.setState({ fishes: sampleFishes })
