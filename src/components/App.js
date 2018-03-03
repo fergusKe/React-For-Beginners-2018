@@ -38,6 +38,12 @@ class App extends Component {
 		})
 	}
 
+	updateFish = (key, updateFish) => {
+		const fishes = { ...this.state.fishes }
+		fishes[key] = updateFish
+		this.setState({ fishes })
+	}
+
 	componentDidUpdate(prevProps, prevState) {
 		console.log(this.state.order)
 		localStorage.setItem(
@@ -76,7 +82,12 @@ class App extends Component {
 					</ul>
 				</div>
 				<Order fishes={this.state.fishes} order={this.state.order} />
-				<Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} />
+				<Inventory
+					addFish={this.addFish}
+					updateFish={this.updateFish}
+					loadSampleFishes={this.loadSampleFishes}
+					fishes={this.state.fishes}
+				/>
 			</div>
 		)
 	}
