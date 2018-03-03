@@ -26,6 +26,14 @@ class App extends Component {
 		})
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		console.log(this.state.order)
+		localStorage.setItem(
+      this.props.match.params.storeId,
+      JSON.stringify(this.state.order)
+    )
+	}
+
 	componentWillUnmount() {
 		base.removeBinding(this.ref)
 	}
@@ -44,15 +52,12 @@ class App extends Component {
 		this.setState({ fishes })
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log(this.state.order)
-		localStorage.setItem(
-      this.props.match.params.storeId,
-      JSON.stringify(this.state.order)
-    )
+	deleteFish = key => {
+		const fishes = { ...this.state.fishes }
+		fishes[key] = null
+		this.setState({ fishes })
 	}
 	
-
 	loadSampleFishes = () => {
 		this.setState({ fishes: sampleFishes })
 	}
@@ -60,6 +65,14 @@ class App extends Component {
 	addToOrder = key => {
 		const order = { ...this.state.order }
 		order[key] = order[key] + 1 || 1
+		this.setState({
+			order
+		})
+	}
+
+	removeFromOrder = key => {
+		const order = { ...this.state.order }
+		delete order[key]
 		this.setState({
 			order
 		})
@@ -81,10 +94,15 @@ class App extends Component {
 						))}
 					</ul>
 				</div>
-				<Order fishes={this.state.fishes} order={this.state.order} />
+				<Order
+					fishes={this.state.fishes}
+					order={this.state.order}
+					removeFromOrder={this.removeFromOrder}
+				/>
 				<Inventory
 					addFish={this.addFish}
 					updateFish={this.updateFish}
+					deleteFish={this.deleteFish}
 					loadSampleFishes={this.loadSampleFishes}
 					fishes={this.state.fishes}
 				/>
