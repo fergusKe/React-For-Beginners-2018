@@ -2,6 +2,7 @@
   "name": "cotd",
   "version": "0.0.3",
   "private": true,
+  "homepage": "https://fergusKe.github.io/React-For-Beginners-2018",
   "devDependencies": {
     "concurrently": "3.5.1",
     "react-scripts": "1.1.1"
@@ -9,6 +10,7 @@
   "dependencies": {
     "autoprefixer-stylus": "0.14.0",
     "firebase": "^4.10.0",
+    "gh-pages": "^1.1.0",
     "prop-types": "^15.6.0",
     "re-base": "3.2.2",
     "react": "^16.3.0-alpha.1",
@@ -19,6 +21,8 @@
     "stylus": "0.54.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
     "build": "react-scripts build",
