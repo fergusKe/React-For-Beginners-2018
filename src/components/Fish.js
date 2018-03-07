@@ -16,10 +16,12 @@ class Fish extends Component {
 	render() {
 		const { image, name, price, desc, status } = this.props.details
 		const isAvailable = status === 'available'
+		const projectPath = 'https://ferguske.github.io/React-For-Beginners-2018'
+		const imageUrl = `${projectPath}/${image}`
 
 		return (
 			<li className="menu-fish">
-				<img src={image} alt={name} />
+				<img src={imageUrl} alt={name} />
 				<h3 className="fish-name">
 					{name}
 					<span className="price">{formatPrice(price)}</span>
